@@ -8,9 +8,22 @@ pipeline {
     }
 
     stage('Script') {
-      steps {
-        sh '''pwd
+      parallel {
+        stage('Script') {
+          steps {
+            sh '''pwd
 ls -la'''
+          }
+        }
+
+        stage('Install Java') {
+          steps {
+            sh '''brew install java
+
+java --version'''
+          }
+        }
+
       }
     }
 
